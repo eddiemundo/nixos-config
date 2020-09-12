@@ -1,7 +1,7 @@
 ```
 mkdir ~/nix
 cd ~/nix
-git clone https://github.com/eddiemundo/nixos-config.git
+git clone https://github.com/eddiemundo/nixos-config.git .
 sudo nixos-rebuild -I nixos-config=configuration.nix switch
 ```
 

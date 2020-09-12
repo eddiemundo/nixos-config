@@ -12,7 +12,7 @@ sudo nixos-rebuild -I nixos-config=configuration.nix switch
 
 #### For development
 ```
-cp nix-shell/haskell <project-directory>
+cp nix-shell/haskell/* <project-directory>
 cd <project-directory>
 nix-shell
 ```

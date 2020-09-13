@@ -36,15 +36,36 @@ in {
     home.file = {
       ".config/nvim/init.vim".source = config.lib.file.mkOutOfStoreSymlink "/home/jon/nix/neovim/init.vim";
       ".config/nvim/coc-settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/jon/nix/neovim/coc-settings.json";
+      ".config/kitty/kitty.conf".source = config.lib.file.mkOutOfStoreSymlink "/home/jon/nix/kitty/kitty.conf";
+      ".config/kitty/theme.conf".source = config.lib.file.mkOutOfStoreSymlink "/home/jon/nix/kitty/ayu_mirage.conf";
     };
 
     programs.home-manager.enable = true;
+    programs.fish.enable = true;
+    programs.fish.plugins = [
+      {
+        name = "theme-l";
+        src = pkgs.fetchFromGitHub {
+          owner = "oh-my-fish";
+          repo = "theme-l";
+          rev = "97a15e58c7f8048b6e2460fdf385d3fba08c8adf";
+          sha256 = "1sjsnd4wn1zxail88liwplhfamqg2n0ihlivb2fv840r676f9ky3";
+        };
+      }
+    ];
+    xdg.configFile."fish/conf.d/plugin-theme-l.fish".text = lib.mkAfter ''
+      for f in $plugin_dir/*.fish
+        source $f
+      end
+      set fish_greeting "Swimmy swim swim..."
+    '';
   };
 
   programs.bash.shellAliases = with paths; {
     noc = "sudo nvim ${paths.nixosConfig}";
     nor = "sudo nixos-rebuild switch";
   };
+
   
   nixpkgs.config = {
     allowUnfree = true;
@@ -92,8 +113,12 @@ in {
         sbt
         nix-prefetch-git
         steam-run-native
+        kakoune
+        kitty
+        fish
       ];
 
+  environment.variables.EDITOR = "nvim";
   # for emacs
   #nix.extraOptions = ''
   #  keep-outputs = true
@@ -200,6 +225,7 @@ in {
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
  #   createHome = true;
 #    home = '/home/jon';
+    shell = pkgs.fish;
   };
   #services.nixosManual.showManual = true;
   # This value determines the NixOS release with which your system is to be

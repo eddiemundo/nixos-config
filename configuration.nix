@@ -38,6 +38,7 @@ in {
       ".config/nvim/coc-settings.json".source = config.lib.file.mkOutOfStoreSymlink "/home/jon/nix/neovim/coc-settings.json";
       ".config/kitty/kitty.conf".source = config.lib.file.mkOutOfStoreSymlink "/home/jon/nix/kitty/kitty.conf";
       ".config/kitty/theme.conf".source = config.lib.file.mkOutOfStoreSymlink "/home/jon/nix/kitty/ayu_mirage.conf";
+      ".config/fish/fish_variables".source = config.lib.file.mkOutOfStoreSymlink "/home/jon/nix/fish/fish_variables";
     };
 
     programs.home-manager.enable = true;
